@@ -3,5 +3,5 @@ module.exports =
         if config?.text?
             console.log config.text
         else
-            console.log data.toString
+            console.log data
         callback null, data

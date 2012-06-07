@@ -3,3 +3,5 @@ module.exports =
         callback null, JSON.parse data
     stringify: (config, data, callback) ->
         callback null, JSON.stringify data, null, 4
+    filter: (config, data, callback) ->
+        callback

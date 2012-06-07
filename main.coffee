@@ -1,17 +1,18 @@
 config = require "./config.json"
 async = require "async"
+{each} = require "underscore"
 
 execute = (config) ->
     data = null
     tasks = [(callback) -> callback(null, {count:0, data:data})]
 
-    for item in config
-        tasks.push (args, callback) ->
-            task = config[args.count]
-            array = task.module.split "::", 2
-            module = require "./plugins/"+array[0]
-            module[array[1]] task.config, args.data, (err, data) ->
-                callback err, {"count":args.count+1, data:data}
+    
+    each config, (task) ->
+        array = task.module.split "::", 2
+        func = (require "./plugins/#{array[0]}")[array[1]]
+        tasks.push (data, next) ->    
+            func task.config, data, (err, result) ->
+                next err, result
 
     tasks.push (data) -> data
     async.waterfall tasks
