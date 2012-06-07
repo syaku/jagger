@@ -2,7 +2,7 @@
 
 files =
 [
-    "main.coffee"
+    "jagger.coffee"
     "./plugins/Console.coffee"
     "./plugins/HTTP.coffee"
     "./plugins/JSON.coffee"
@@ -10,7 +10,7 @@ files =
 
 jsFiles =
 [
-    "main.js"
+    "jagger.js"
     "./plugins/Console.js"
     "./plugins/HTTP.js"
     "./plugins/JSON.js"
