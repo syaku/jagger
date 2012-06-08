@@ -1,29 +1,36 @@
 {exec} = require "child_process"
+{filter} = require "underscore"
+fs = require "fs"
 
-files =
-[
-    "jagger.coffee"
-    "./plugins/Console.coffee"
-    "./plugins/HTTP.coffee"
-    "./plugins/JSON.coffee"
-]
+getFiles = (ext)->
+    files = fs.readdirSync "./"
+    plugins = fs.readdirSync "./plugins/"
 
-jsFiles =
-[
-    "jagger.js"
-    "./plugins/Console.js"
-    "./plugins/HTTP.js"
-    "./plugins/JSON.js"
-]
+    for plugin in plugins
+        files.push "plugins/#{plugin}"
 
-task "make", "Compile .coffee files.", (options) ->
-    console.log "Execute make task."
+    re = new RegExp("\.#{ext}$")
+    return filter files, (filename) ->
+        if re.test(filename)
+            true
+        else
+            false
+
+task "lint", "Lint .coffee files.", (options) ->
+    files = getFiles "coffee"
+    exec "coffeelint -f lint.json #{files.join ' '}", (err, stdout, stderr) ->
+        console.log stdout+stderr
+        throw err if err
+
+task "build", "Compile .coffee files.", (options) ->
+    files = getFiles "coffee"
     exec "coffee -c #{files.join ' '}", (err, stdout, stderr) ->
         throw err if err
         console.log stdout+stderr
-
+        console.log "Done."
 task "clean", "Clean up .js files.", (options) ->
-    console.log "Execute clean up task"
-    exec "rm #{jsFiles.join ' '}", (err, stdout, stderr) ->
+    files = getFiles "js"
+    exec "rm #{files.join ' '}", (err, stdout, stderr) ->
         throw err if err
         console.log stdout+stderr
+        console.log "Done."

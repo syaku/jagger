@@ -21,7 +21,7 @@ execute = (config) ->
     each config, (task) ->
         array = task.module.split "::", 2
         func = (require "./plugins/#{array[0]}")[array[1]]
-        tasks.push (data, next) ->    
+        tasks.push (data, next) ->
             func task.config, data, (err, result) ->
                 next err, result
 

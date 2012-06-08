@@ -12,9 +12,9 @@ module.exports =
         
         protocol.get myUrl, (res) ->
             body = ""
-            res.on "data", (buff) -> 
+            res.on "data", (buff) ->
                 body += buff
-            res.on "end", -> 
+            res.on "end", ->
                 callback null, body
 
     post: (config, data, callback) ->
