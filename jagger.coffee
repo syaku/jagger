@@ -19,8 +19,8 @@ execute = (config) ->
     tasks = [(callback) -> callback(null, {count:0, data:data})]
     
     each config, (task) ->
-        array = task.module.split "::", 2
-        func = (require "./plugins/#{array[0]}")[array[1]]
+        [module, action] = task.module.split "::", 2
+        func = (require "./plugins/#{module}")[action]
         tasks.push (data, next) ->
             func task.config, data, (err, result) ->
                 next err, result
