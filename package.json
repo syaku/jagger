@@ -1,11 +1,11 @@
 {
-    "name": "jagger"
-    , "version": "0.0.1"
-	, "private": true
-	, "dependencies": {
-		"async": ">= 0.0.1"
-		,"opts": ">= 0.0.1"
-		,"underscore": ">= 0.0.1"
-		,"jquery": ">= 0.0.1"
-	}
+  "name": "jagger"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+    "async": ">= 0.0.1"
+    ,"opts": ">= 0.0.1"
+    ,"underscore": ">= 0.0.1"
+    ,"jquery": ">= 0.0.1"
+  }
 }
